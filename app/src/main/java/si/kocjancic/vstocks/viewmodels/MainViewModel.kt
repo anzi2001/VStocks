@@ -1,5 +1,6 @@
 package si.kocjancic.vstocks.viewmodels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,7 +15,8 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val iexApi: IEXApi
 ) : ViewModel(){
-    val quote : MutableLiveData<List<Quotes>?> = MutableLiveData(null)
+    private val quote : MutableLiveData<List<Quotes?>> = MutableLiveData(null)
+    val quoteData : LiveData<List<Quotes?>> = quote
     fun pullAapl() {
         viewModelScope.launch {
             quote.value = iexApi.getMostActiveList()

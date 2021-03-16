@@ -35,8 +35,7 @@ fun Main() {
     val mainNavigator = rememberNavController()
     NavHost(navController = mainNavigator, startDestination = "mainScreen"){
         composable("mainScreen"){
-            val mainViewModel: MainViewModel = hiltNavGraphViewModel(it)
-            MainScreen(mainNavigator,mainViewModel)
+            MainScreen(mainNavigator)
         }
         composable("addStock"){ AddStock()}
     }

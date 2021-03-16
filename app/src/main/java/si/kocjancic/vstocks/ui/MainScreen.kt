@@ -1,10 +1,13 @@
 package si.kocjancic.vstocks.ui
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltNavGraphViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -14,7 +17,7 @@ import si.kocjancic.vstocks.models.Screens
 import si.kocjancic.vstocks.viewmodels.MainViewModel
 
 @Composable
-fun MainScreen(mainNavController: NavController,mainViewModel: MainViewModel){
+fun MainScreen(mainNavController: NavController){
     val screens = listOf(Screens.MyStocks, Screens.AllStocks)
     val navController = rememberNavController()
     Scaffold(
@@ -42,12 +45,19 @@ fun MainScreen(mainNavController: NavController,mainViewModel: MainViewModel){
             }
         },
 
-        ){
+        ){ padding ->
         NavHost(navController,startDestination = Screens.MyStocks.route){
             composable(Screens.MyStocks.route){
-                MyStocks(mainViewModel)
+                val mainViewModel: MainViewModel = hiltNavGraphViewModel(it)
+                Box(modifier = Modifier.padding(padding)){
+                    MyStocks(mainViewModel)
+                }
+
             }
-            composable(Screens.AllStocks.route){ AllStocks() }
+            composable(Screens.AllStocks.route){
+                val mainViewModel: MainViewModel = hiltNavGraphViewModel(it)
+                AllStocks()
+            }
         }
     }
 }
@@ -56,6 +66,5 @@ fun MainScreen(mainNavController: NavController,mainViewModel: MainViewModel){
 @Composable
 fun MainScreenPrewiew(){
     val navController = rememberNavController()
-    val model: MainViewModel by viewModel()
-    MainScreen(navController,model)
+    MainScreen(navController)
 }

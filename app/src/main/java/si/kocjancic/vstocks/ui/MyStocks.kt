@@ -9,8 +9,11 @@ import si.kocjancic.vstocks.viewmodels.MainViewModel
 
 @Composable
 fun MyStocks(viewModel : MainViewModel){
-    val data by viewModel.quote.observeAsState()
-    viewModel.pullAapl()
+    val data by viewModel.quoteData.observeAsState()
+    if (data == null){
+        viewModel.pullAapl()
+    }
+
     if(data == null){
         Column{
 
@@ -19,7 +22,7 @@ fun MyStocks(viewModel : MainViewModel){
     else{
         LazyColumn{
             items(data!!){ quote->
-                BasicStockView(quote = quote,viewModel = viewModel)
+                BasicStockView(quote = quote!!,viewModel = viewModel)
             }
         }
     }
