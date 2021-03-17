@@ -48,15 +48,16 @@ fun MainScreen(mainNavController: NavController){
         ){ padding ->
         NavHost(navController,startDestination = Screens.MyStocks.route){
             composable(Screens.MyStocks.route){
-                val mainViewModel: MainViewModel = hiltNavGraphViewModel(it)
                 Box(modifier = Modifier.padding(padding)){
-                    MyStocks(mainViewModel)
+                    MyStocks()
                 }
 
             }
             composable(Screens.AllStocks.route){
-                val mainViewModel: MainViewModel = hiltNavGraphViewModel(it)
-                AllStocks()
+                Box(modifier = Modifier.padding(padding)){
+                    val mainViewModel: MainViewModel = hiltNavGraphViewModel(it)
+                    AllStocks(mainViewModel)
+                }
             }
         }
     }

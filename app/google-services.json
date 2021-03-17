@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "765364778436",
+    "project_id": "vstocks-cf1b5",
+    "storage_bucket": "vstocks-cf1b5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:765364778436:android:e42758692c5f873ea26091",
+        "android_client_info": {
+          "package_name": "si.kocjancic.vstocks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "765364778436-811fr25borfrtf6qttlrp63euu7qmdr4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCc1xrFalwFS6NvGGS97TUI0vOpgjGi8Zk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "765364778436-811fr25borfrtf6qttlrp63euu7qmdr4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

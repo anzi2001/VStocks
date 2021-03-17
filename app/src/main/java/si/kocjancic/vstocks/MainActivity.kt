@@ -7,13 +7,11 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltNavGraphViewModel
 import androidx.navigation.compose.*
 import dagger.hilt.android.AndroidEntryPoint
 import si.kocjancic.vstocks.ui.AddStock
 import si.kocjancic.vstocks.ui.MainScreen
 import si.kocjancic.vstocks.ui.theme.VStocksTheme
-import si.kocjancic.vstocks.viewmodels.MainViewModel
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -22,7 +20,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             VStocksTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
+                Surface(
+                    color = MaterialTheme.colors.background,
+                ) {
                     Main()
                 }
             }
