@@ -10,7 +10,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltNavGraphViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.*
 import si.kocjancic.vstocks.models.Screens
@@ -63,7 +62,7 @@ fun MainScreen(mainNavController: NavController){
     }
 }
 
-@Preview(showBackground = true,showSystemUi = true,)
+@Preview(showBackground = true,showSystemUi = true)
 @Composable
 fun MainScreenPrewiew(){
     val navController = rememberNavController()
