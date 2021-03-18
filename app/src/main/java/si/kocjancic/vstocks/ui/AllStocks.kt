@@ -15,10 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import si.kocjancic.vstocks.viewmodels.MainViewModel
+import si.kocjancic.vstocks.viewmodels.AllStocksViewModel
 
 @Composable
-fun AllStocks(viewModel : MainViewModel){
+fun AllStocks(viewModel : AllStocksViewModel){
     val data by viewModel.quoteData.observeAsState()
     if (data == null){
         viewModel.pullAapl()
@@ -32,7 +32,7 @@ fun AllStocks(viewModel : MainViewModel){
     else{
         Card(
             backgroundColor = MaterialTheme.colors.primaryVariant,
-            modifier = Modifier.padding(10.dp),
+            modifier = Modifier.padding(horizontal=10.dp),
             shape = RoundedCornerShape(20.dp),
             border = null
         ) {
@@ -50,6 +50,6 @@ fun AllStocks(viewModel : MainViewModel){
 @Preview(showBackground = true,showSystemUi = true)
 @Composable
 fun AlLStocksPreview(){
-    val mainViewModel = viewModel<MainViewModel>()
+    val mainViewModel = viewModel<AllStocksViewModel>()
     AllStocks(mainViewModel)
 }

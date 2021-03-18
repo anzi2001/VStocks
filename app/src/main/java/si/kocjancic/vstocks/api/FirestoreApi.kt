@@ -7,20 +7,17 @@ import si.kocjancic.vstocks.models.MyStock
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-object FirestoreApi {
-    suspend fun FirebaseUser.pullMyStocks(uid: String) : List<MyStock>{
-        return suspendCoroutine { cont ->
-            Firebase.firestore.collection("users").document(uid).collection("myStocks").get().addOnSuccessListener {
-                cont.resume(it.toObjects(MyStock::class.java))
-            }
+suspend fun FirebaseUser.pullMyStocks() : List<MyStock>{
+    return suspendCoroutine { cont ->
+        Firebase.firestore.collection("users").document(uid).collection("myStocks").get().addOnSuccessListener {
+            cont.resume(it.toObjects(MyStock::class.java))
         }
     }
-    suspend fun FirebaseUser.addMyStock(uid:String,myStock: MyStock) : String{
-        return suspendCoroutine { cont->
-            Firebase.firestore.collection("users").document(uid).collection("myStocks").add(myStock).addOnSuccessListener {
-                cont.resume("OK")
-            }
+}
+suspend fun FirebaseUser.addMyStock(myStock: MyStock) : String{
+    return suspendCoroutine { cont->
+        Firebase.firestore.collection("users").document(uid).collection("myStocks").add(myStock).addOnSuccessListener {
+            cont.resume("OK")
         }
     }
-
 }

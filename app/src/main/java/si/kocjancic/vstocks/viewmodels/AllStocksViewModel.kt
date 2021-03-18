@@ -12,9 +12,7 @@ import si.kocjancic.vstocks.models.Quotes
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
-    private val iexApi: IEXApi
-) : ViewModel(){
+class AllStocksViewModel @Inject constructor(private val iexApi: IEXApi) : ViewModel(){
     private val quote : MutableLiveData<List<Quotes?>> = MutableLiveData(null)
     val quoteData : LiveData<List<Quotes?>> = quote
     fun pullAapl() {
@@ -23,7 +21,9 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    suspend fun pullSymbolImage(symbol : String):ImageUrl{
-        return iexApi.getLogoForSymbol(symbol)
+    suspend fun pullSymbolImage(symbol : String): ImageUrl {
+        return iexApi!!.getLogoForSymbol(symbol)
     }
+
+
 }
