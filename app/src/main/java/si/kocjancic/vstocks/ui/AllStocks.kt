@@ -21,7 +21,7 @@ import si.kocjancic.vstocks.viewmodels.AllStocksViewModel
 fun AllStocks(viewModel : AllStocksViewModel){
     val data by viewModel.quoteData.observeAsState()
     if (data == null){
-        viewModel.pullAapl()
+        viewModel.pullLatestStocks()
     }
 
     if(data == null){

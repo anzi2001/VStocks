@@ -15,15 +15,14 @@ import javax.inject.Inject
 class AllStocksViewModel @Inject constructor(private val iexApi: IEXApi) : ViewModel(){
     private val quote : MutableLiveData<List<Quotes?>> = MutableLiveData(null)
     val quoteData : LiveData<List<Quotes?>> = quote
-    fun pullAapl() {
+    fun pullLatestStocks() {
         viewModelScope.launch {
             quote.value = iexApi.getMostActiveList()
         }
     }
 
     suspend fun pullSymbolImage(symbol : String): ImageUrl {
-        return iexApi!!.getLogoForSymbol(symbol)
+        return iexApi.getLogoForSymbol(symbol)
     }
-
 
 }
