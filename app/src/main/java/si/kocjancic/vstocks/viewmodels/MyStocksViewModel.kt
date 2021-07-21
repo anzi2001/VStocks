@@ -11,13 +11,13 @@ import kotlinx.coroutines.launch
 import si.kocjancic.vstocks.api.IEXApi
 import si.kocjancic.vstocks.api.pullMyStocks
 import si.kocjancic.vstocks.models.ImageUrl
-import si.kocjancic.vstocks.models.MyStock
+import si.kocjancic.vstocks.models.Quotes
 import javax.inject.Inject
 
 @HiltViewModel
 class MyStocksViewModel @Inject constructor(private val iexApi: IEXApi) : ViewModel() {
-    private val _myStocks = MutableLiveData<List<MyStock>>()
-    val myStocks : LiveData<List<MyStock>> = _myStocks
+    private val _myStocks = MutableLiveData<List<Quotes>>()
+    val myStocks : LiveData<List<Quotes>> = _myStocks
 
     fun pullMyStocks(){
         viewModelScope.launch {

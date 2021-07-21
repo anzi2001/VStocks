@@ -1,6 +1,5 @@
 package si.kocjancic.vstocks.ui
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,6 +11,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import si.kocjancic.vstocks.ui.components.MyStockView
 import si.kocjancic.vstocks.viewmodels.MyStocksViewModel
 
 @Composable
@@ -20,12 +20,6 @@ fun MyStocks(myStocksViewModel: MyStocksViewModel){
     if (data == null){
         myStocksViewModel.pullMyStocks()
     }
-
-    if(data == null){
-        Column{
-
-        }
-    }
     else{
         Card(
             backgroundColor = MaterialTheme.colors.primaryVariant,
@@ -33,12 +27,12 @@ fun MyStocks(myStocksViewModel: MyStocksViewModel){
             shape = RoundedCornerShape(20.dp),
             border = null
         ) {
-            /*LazyColumn{
+            LazyColumn{
                 items(data!!){ quote->
-                    BasicStockView(quote = quote!!,viewModel = myStocksViewModel)
+                    MyStockView(quote,viewModel = myStocksViewModel)
                     Divider()
                 }
-            }*/
+            }
         }
 
     }

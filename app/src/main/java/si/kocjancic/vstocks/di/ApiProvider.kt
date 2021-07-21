@@ -17,7 +17,7 @@ object ApiProvider {
     @Singleton
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://cloud.iexapis.com/stable/")
+            .baseUrl("https://cloud.iexapis.com/beta/")
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
     }

@@ -1,9 +1,15 @@
 package si.kocjancic.vstocks.models
 
+import android.os.Parcelable
 import com.squareup.moshi.JsonClass
+import kotlinx.parcelize.Parcelize
 
 @JsonClass(generateAdapter=true)
+@Parcelize
 data class Quotes(
+    val myStockAmount : Double?,
+    @Transient
+    var dataPulled : Boolean = false,
     val avgTotalVolume: Int?,
     val calculationPrice: String?,
     val change: Double?,
@@ -56,9 +62,9 @@ data class Quotes(
     val primaryExchange: String,
     val symbol: String,
     val volume: String?,
-    val week52High: Double,
-    val week52Low: Double,
-    val ytdChange: Double,
+    val week52High: Double?,
+    val week52Low: Double?,
+    val ytdChange: Double?,
     @Transient
     var  logoUrl : String = ""
-)
+) : Parcelable

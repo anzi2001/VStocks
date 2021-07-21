@@ -9,8 +9,11 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.*
 import dagger.hilt.android.AndroidEntryPoint
+import si.kocjancic.vstocks.models.Quotes
 import si.kocjancic.vstocks.ui.AddStock
 import si.kocjancic.vstocks.ui.MainScreen
+import si.kocjancic.vstocks.ui.SettingsScreen
+import si.kocjancic.vstocks.ui.components.DetailedStockView
 import si.kocjancic.vstocks.ui.theme.VStocksTheme
 
 @AndroidEntryPoint
@@ -38,6 +41,11 @@ fun Main() {
             MainScreen(mainNavigator)
         }
         composable("addStock"){ AddStock()}
+        composable("settings"){ SettingsScreen()}
+        composable("detailedStockView"){
+            val quote : Quotes = mainNavigator.previousBackStackEntry?.arguments?.getParcelable("detailedQuote")!!
+            DetailedStockView(quote)
+        }
     }
 }
 

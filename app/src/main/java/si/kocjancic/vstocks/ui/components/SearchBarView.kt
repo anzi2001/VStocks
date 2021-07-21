@@ -12,6 +12,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+
 @Composable
 fun SearchBar(modifier: Modifier = Modifier){
     var text by remember{ mutableStateOf("")}
@@ -24,7 +28,7 @@ fun SearchBar(modifier: Modifier = Modifier){
         ),
         modifier= modifier,
         shape= RoundedCornerShape(50),
-        maxLines=1,
+        singleLine=true,
         placeholder = {Row{
             Icon(Icons.Default.Search, contentDescription = "test")
             Text("Search")
