@@ -1,8 +1,10 @@
 package si.kocjancic.vstocks.models
 
 import android.os.Parcelable
+import androidx.lifecycle.LiveData
 import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 
 @JsonClass(generateAdapter=true)
 @Parcelize
@@ -66,5 +68,5 @@ data class Quotes(
     val week52Low: Double?,
     val ytdChange: Double?,
     @Transient
-    var  logoUrl : String = ""
+    var logoUrl : String = ""
 ) : Parcelable

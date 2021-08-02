@@ -9,7 +9,7 @@ plugins {
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    buildToolsVersion "31.0.0"
 
     defaultConfig {
         applicationId "si.kocjancic.vstocks"
@@ -46,32 +46,22 @@ android {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.10"
     implementation 'androidx.core:core-ktx:1.6.0'
-    implementation 'androidx.appcompat:appcompat:1.3.0'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
 
     implementation 'com.google.android.material:material:1.4.0'
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
-    implementation("androidx.compose.ui:ui-tooling:$compose_version") {
-        version {
-            // TODO: Remove this when Android Studio has become compatible again
-            // Android Studio Bumblebee | 2021.1.1 Canary 3 is not compatible with module ui-tooling 1.0.0-rc01 or higher.
-            // The Run Configuration for Composable Previews that Android Studio makes expects a PreviewActivity class
-            // in the `androidx.compose.ui.tooling.preview` package, but it was moved in 1.0.0-rc01, and thus causes error:
-            // "androidx.compose.ui.tooling.preview.PreviewActivity is not an Activity subclass or alias".
-            // For more, see: https://stackoverflow.com/questions/68224361/jetpack-compose-cant-preview-after-updating-to-1-0-0-rc01
-            strictly("1.0.0-beta09")
-        }
-    }
+    implementation("androidx.compose.ui:ui-tooling:$compose_version")
 
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07"
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0-alpha03"
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-    implementation 'androidx.activity:activity-compose:1.3.0-rc02'
-    implementation "androidx.navigation:navigation-compose:2.4.0-alpha04"
+    implementation 'androidx.activity:activity-compose:1.3.0'
+    implementation "androidx.navigation:navigation-compose:2.4.0-alpha05"
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'
 
@@ -84,8 +74,16 @@ dependencies {
 
     //DI
     implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
-    implementation 'com.google.dagger:hilt-android:2.37'
-    kapt 'com.google.dagger:hilt-compiler:2.37'
+    implementation 'com.google.dagger:hilt-android:2.38.1'
+    kapt 'com.google.dagger:hilt-compiler:2.38.1'
+
+    //ROOM ORM
+    def room_version = "2.3.0"
+    implementation("androidx.room:room-runtime:$room_version")
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation("androidx.room:room-ktx:$room_version")
+
+
 
     //preview
     debugImplementation "org.jetbrains.kotlin:kotlin-reflect:1.5.21"
@@ -100,7 +98,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore-ktx'
     implementation 'com.google.firebase:firebase-auth-ktx'
 
-    testImplementation("junit:junit:4.13.1")
+    testImplementation("junit:junit:4.13.2")
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     testImplementation('androidx.test:core:1.4.0')
 

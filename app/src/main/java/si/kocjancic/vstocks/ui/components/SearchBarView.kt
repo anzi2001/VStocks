@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun SearchBar(modifier: Modifier = Modifier){
+fun SearchBar(modifier: Modifier = Modifier,onValueChange : (String) -> Unit){
     var text by remember{ mutableStateOf("")}
     TextField(text,
         colors= TextFieldDefaults.textFieldColors(
@@ -33,6 +33,9 @@ fun SearchBar(modifier: Modifier = Modifier){
             Icon(Icons.Default.Search, contentDescription = "test")
             Text("Search")
         }},
-        onValueChange = { text = it}
+        onValueChange = {
+            text = it
+            onValueChange(it)
+        }
     )
 }

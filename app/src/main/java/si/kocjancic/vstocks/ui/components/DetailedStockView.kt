@@ -1,6 +1,5 @@
 package si.kocjancic.vstocks.ui.components
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -114,11 +113,13 @@ fun DetailedStockView(quote : Quotes){
         }
     }
     if(expanded){
-        InputPopup(onCancelClick = {
-            expanded = false
-        }, onConfirmClick = {
+        InputPopup(
+            onCancelClick = {
+                expanded = false
+            }, onConfirmClick = {
 
-        })
+            }
+        )
     }
 
 }

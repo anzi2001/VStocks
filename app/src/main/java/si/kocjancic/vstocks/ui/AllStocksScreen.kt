@@ -1,6 +1,7 @@
 package si.kocjancic.vstocks.ui
 
 import android.os.Bundle
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -9,22 +10,27 @@ import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import si.kocjancic.vstocks.ui.components.BasicStockView
 import si.kocjancic.vstocks.viewmodels.AllStocksViewModel
 
 @Composable
-fun AllStocks(viewModel : AllStocksViewModel,navController : NavController){
-    val data by viewModel.quoteData.observeAsState()
+fun AllStocks(allStocksViewModel : AllStocksViewModel, mainNavController : NavController){
+    val data by allStocksViewModel.quoteData.observeAsState()
+    val scope = rememberCoroutineScope()
     if (data == null){
-        viewModel.pullLatestStocks()
+        allStocksViewModel.pullLatestStocks()
+        Column {}
     }
     else{
         Card(
@@ -35,9 +41,16 @@ fun AllStocks(viewModel : AllStocksViewModel,navController : NavController){
         ) {
             LazyColumn{
                 items(data!!){ quote->
-                    BasicStockView(quote = quote!!,viewModel = viewModel){
-                        navController.currentBackStackEntry?.arguments = Bundle().apply{putParcelable("detailedQuote",quote)}
-                        navController.navigate("detailedStockView")
+                    val logoUrlState = MutableLiveData(quote!!.logoUrl)
+                    if(logoUrlState.value!!.isEmpty()){
+                        scope.launch(Dispatchers.IO) {
+                            logoUrlState.postValue(allStocksViewModel.pullSymbolImage(quote.symbol).url)
+                            quote.logoUrl = logoUrlState.value!!
+                        }
+                    }
+                    BasicStockView(quote = quote,logoUrlState){
+                        mainNavController.currentBackStackEntry?.arguments = Bundle().apply{putParcelable("detailedQuote",quote)}
+                        mainNavController.navigate("detailedStockView")
                     }
                     Divider()
                 }
@@ -45,12 +58,4 @@ fun AllStocks(viewModel : AllStocksViewModel,navController : NavController){
         }
 
     }
-}
-
-@Preview(showBackground = true,showSystemUi = true)
-@Composable
-fun AlLStocksPreview(){
-    val mainViewModel = viewModel<AllStocksViewModel>()
-    val navController = rememberNavController()
-    AllStocks(mainViewModel,navController)
 }

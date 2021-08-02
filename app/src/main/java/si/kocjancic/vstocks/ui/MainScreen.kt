@@ -52,7 +52,9 @@ fun MainScreen(mainNavController: NavController){
                 SearchBar(modifier = Modifier
                     .weight(5f)
                     .padding(10.dp)
-                )
+                ){
+
+                }
                 IconButton(
                     content={ Icon(Icons.Default.Settings,
                         contentDescription = "Settings icon",
