@@ -7,6 +7,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
 import androidx.navigation.compose.*
 import dagger.hilt.android.AndroidEntryPoint
 import si.kocjancic.vstocks.models.Quotes
@@ -42,9 +43,9 @@ fun Main() {
         }
         composable("addStock"){ AddStock()}
         composable("settings"){ SettingsScreen()}
-        composable("detailedStockView"){
-            val quote : Quotes = mainNavigator.previousBackStackEntry?.arguments?.getParcelable("detailedQuote")!!
-            DetailedStockView(quote)
+        composable("detailedStockView/{id}",arguments = listOf(navArgument("id"){type = NavType.StringType})){
+            val symbol : String = it.arguments?.getString("id")!!
+            DetailedStockView(symbol)
         }
     }
 }

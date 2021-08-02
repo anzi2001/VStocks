@@ -2,12 +2,15 @@ package si.kocjancic.vstocks.models
 
 import android.os.Parcelable
 import androidx.lifecycle.LiveData
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 
 @JsonClass(generateAdapter=true)
 @Parcelize
+@Entity
 data class Quotes(
     val myStockAmount : Double?,
     @Transient
@@ -62,7 +65,7 @@ data class Quotes(
     val previousClose: Double,
     val previousVolume: Int,
     val primaryExchange: String,
-    val symbol: String,
+    @PrimaryKey val symbol: String,
     val volume: String?,
     val week52High: Double?,
     val week52Low: Double?,

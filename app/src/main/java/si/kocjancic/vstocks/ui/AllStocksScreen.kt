@@ -50,7 +50,7 @@ fun AllStocks(allStocksViewModel : AllStocksViewModel, mainNavController : NavCo
                     }
                     BasicStockView(quote = quote,logoUrlState){
                         mainNavController.currentBackStackEntry?.arguments = Bundle().apply{putParcelable("detailedQuote",quote)}
-                        mainNavController.navigate("detailedStockView")
+                        mainNavController.navigate("detailedStockView/${quote.symbol}")
                     }
                     Divider()
                 }

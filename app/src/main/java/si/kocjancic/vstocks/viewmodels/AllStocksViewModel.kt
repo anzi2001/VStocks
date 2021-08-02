@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import si.kocjancic.vstocks.api.IEXApi
 import si.kocjancic.vstocks.models.ImageUrl
@@ -16,8 +17,8 @@ class AllStocksViewModel @Inject constructor(private val iexApi: IEXApi) : ViewM
     private val quote : MutableLiveData<List<Quotes?>> = MutableLiveData(null)
     val quoteData : LiveData<List<Quotes?>> = quote
     fun pullLatestStocks() {
-        viewModelScope.launch {
-            quote.value = iexApi.getMostActiveList()
+        viewModelScope.launch(Dispatchers.IO) {
+            quote.postValue(iexApi.getMostActiveList())
         }
     }
 

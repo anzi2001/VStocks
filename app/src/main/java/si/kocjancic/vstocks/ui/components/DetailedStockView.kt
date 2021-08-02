@@ -16,12 +16,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
-import si.kocjancic.vstocks.models.Quotes
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 
 @Composable
-fun DetailedStockView(quote : Quotes){
+fun DetailedStockView(symbol : String){
+    val quote =
     val color = remember{if(quote.change!! < 0) Color.Red else Color.Green}
     var expanded by remember { mutableStateOf(false)}
     Scaffold{
