@@ -8,17 +8,20 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import si.kocjancic.vstocks.api.IEXApi
+import si.kocjancic.vstocks.cache.QuoteCacheLayer
 import si.kocjancic.vstocks.models.ImageUrl
 import si.kocjancic.vstocks.models.Quotes
 import javax.inject.Inject
 
 @HiltViewModel
-class AllStocksViewModel @Inject constructor(private val iexApi: IEXApi) : ViewModel(){
+class AllStocksViewModel @Inject constructor(private val iexApi: IEXApi,private val quoteCacheLayer: QuoteCacheLayer) : ViewModel(){
     private val quote : MutableLiveData<List<Quotes?>> = MutableLiveData(null)
     val quoteData : LiveData<List<Quotes?>> = quote
     fun pullLatestStocks() {
         viewModelScope.launch(Dispatchers.IO) {
-            quote.postValue(iexApi.getMostActiveList())
+            val mostActiveList = iexApi.getMostActiveList()
+            quoteCacheLayer.storeQuotesInCache(mostActiveList)
+            quote.postValue(mostActiveList)
         }
     }
 

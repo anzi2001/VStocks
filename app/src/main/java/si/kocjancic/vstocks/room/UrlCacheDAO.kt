@@ -14,6 +14,6 @@ interface UrlCacheDAO{
     @Delete
     suspend fun delete(entity: UrlCacheEntity)
 
-    @Query("SELECT * FROM urlcacheentity")
-    suspend fun selectUrl(): UrlCacheEntity
+    @Query("SELECT * FROM urlcacheentity WHERE symbol = :symbol LIMIT 1")
+    suspend fun selectUrl(symbol : String): UrlCacheEntity?
 }

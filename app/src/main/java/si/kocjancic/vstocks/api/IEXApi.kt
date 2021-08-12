@@ -7,7 +7,7 @@ import si.kocjancic.vstocks.models.Quotes
 
 interface IEXApi {
     @GET("stock/{stock}/quote?token=pk_c6b5fe8f166d404ab5eafe0565f3d788")
-    suspend fun getSingleApi(@Path("stock") stock : String) : Quotes
+    suspend fun getSingleQuote(@Path("stock") stock : String) : Quotes
 
 
     @GET("stock/{symbol}/logo?token=pk_c6b5fe8f166d404ab5eafe0565f3d788")
