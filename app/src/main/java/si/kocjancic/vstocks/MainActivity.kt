@@ -12,11 +12,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
 import dagger.hilt.android.AndroidEntryPoint
-import si.kocjancic.vstocks.models.Quotes
 import si.kocjancic.vstocks.ui.AddStock
+import si.kocjancic.vstocks.ui.DetailedStockScreen
 import si.kocjancic.vstocks.ui.MainScreen
 import si.kocjancic.vstocks.ui.SettingsScreen
-import si.kocjancic.vstocks.ui.components.DetailedStockView
 import si.kocjancic.vstocks.ui.theme.VStocksTheme
 import si.kocjancic.vstocks.viewmodels.DetailedStockViewModel
 
@@ -50,7 +49,7 @@ fun Main() {
         composable("detailedStockView/{id}",arguments = listOf(navArgument("id"){type = NavType.StringType})){
             val symbol : String = it.arguments?.getString("id")!!
             val viewModel = hiltViewModel<DetailedStockViewModel>()
-            DetailedStockView(symbol,viewModel)
+            DetailedStockScreen(symbol,viewModel)
         }
     }
 }

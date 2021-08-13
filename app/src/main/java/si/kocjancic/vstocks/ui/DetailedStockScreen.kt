@@ -1,5 +1,6 @@
-package si.kocjancic.vstocks.ui.components
+package si.kocjancic.vstocks.ui
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -19,18 +20,29 @@ import coil.compose.rememberImagePainter
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.setValue
+import si.kocjancic.vstocks.ui.components.InputPopup
 import si.kocjancic.vstocks.viewmodels.DetailedStockViewModel
 
 @Composable
-fun DetailedStockView(symbol : String,detailedStockViewModel: DetailedStockViewModel){
+fun DetailedStockScreen(symbol : String,detailedStockViewModel: DetailedStockViewModel){
     val quotes by detailedStockViewModel.quote.observeAsState()
     if(quotes == null){
         detailedStockViewModel.getQuote(symbol)
+        Column(
+            modifier=Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ){
+            CircularProgressIndicator()
+        }
     }
     else{
         val quote = quotes!!
         val color = remember{if(quote.change!! < 0) Color.Red else Color.Green}
         var expanded by remember { mutableStateOf(false)}
+        BackHandler(enabled = expanded) {
+            expanded = !expanded
+        }
         Scaffold{
             Column{
                 Column(modifier= Modifier
