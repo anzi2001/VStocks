@@ -1,6 +1,5 @@
 package si.kocjancic.vstocks.cache
 
-import android.util.Log
 import androidx.collection.LruCache
 import kotlinx.coroutines.*
 import si.kocjancic.vstocks.api.IEXApi
@@ -15,12 +14,14 @@ import javax.inject.Inject
 //strategy should be:
 //request url -> is in memory? No-> is on disk? No-> get from network
 //after fetching from the preferred medium, sync all
-class UrlCacheLayer {
-    @Inject
-    lateinit var iexApi: IEXApi
-    @Inject
-    lateinit var urlCacheDAO: UrlCacheDAO
+class UrlCacheLayer @Inject constructor(val iexApi: IEXApi,val urlCacheDAO: UrlCacheDAO) {
     private val urlCache = LruCache<String, String>(500)
+
+    init{
+        GlobalScope.launch(Dispatchers.IO) {
+            urlCacheDAO.selectAllUrls().forEach{urlCache.put(it.symbol,it.url)}
+        }
+    }
 
     suspend fun getUrl(symbol : String) : String{
         var url = urlCache.get(symbol)

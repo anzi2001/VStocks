@@ -1,14 +1,11 @@
 package si.kocjancic.vstocks.room
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import si.kocjancic.vstocks.models.UrlCacheEntity
 
 @Dao
 interface UrlCacheDAO{
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entity : UrlCacheEntity)
 
     @Delete
@@ -16,4 +13,7 @@ interface UrlCacheDAO{
 
     @Query("SELECT * FROM urlcacheentity WHERE symbol = :symbol LIMIT 1")
     suspend fun selectUrl(symbol : String): UrlCacheEntity?
+
+    @Query("SELECT * FROM urlcacheentity")
+    suspend fun selectAllUrls() : List<UrlCacheEntity>
 }

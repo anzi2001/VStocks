@@ -9,12 +9,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import si.kocjancic.vstocks.api.IEXApi
 import si.kocjancic.vstocks.cache.QuoteCacheLayer
-import si.kocjancic.vstocks.models.ImageUrl
+import si.kocjancic.vstocks.cache.UrlCacheLayer
 import si.kocjancic.vstocks.models.Quotes
 import javax.inject.Inject
 
 @HiltViewModel
-class AllStocksViewModel @Inject constructor(private val iexApi: IEXApi,private val quoteCacheLayer: QuoteCacheLayer) : ViewModel(){
+class AllStocksViewModel @Inject constructor(private val iexApi: IEXApi,private val quoteCacheLayer: QuoteCacheLayer,private val urlCacheLayer: UrlCacheLayer) : ViewModel(){
     private val quote : MutableLiveData<List<Quotes?>> = MutableLiveData(null)
     val quoteData : LiveData<List<Quotes?>> = quote
     fun pullLatestStocks() {
@@ -25,8 +25,8 @@ class AllStocksViewModel @Inject constructor(private val iexApi: IEXApi,private 
         }
     }
 
-    suspend fun pullSymbolImage(symbol : String): ImageUrl {
-        return iexApi.getLogoForSymbol(symbol)
+    suspend fun pullSymbolImage(symbol : String): String {
+        return urlCacheLayer.getUrl(symbol)
     }
 
 }
